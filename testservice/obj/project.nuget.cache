@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "VmUtzdvpsioZjyTugJwWeAk9BNn1U5B6bovsu8t+neMApWnU6rSV3J2Y9ozK07HlGReNwSXGs9+IG5RNenFaHg==",
+  "success": true,
+  "projectFilePath": "G:\\Jelle\\Testing\\DockerTesting\\testservice\\testservice.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Jelle\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.9\\microsoft.visualstudio.azure.containers.tools.targets.1.10.9.nupkg.sha512"
+  ],
+  "logs": []
+}

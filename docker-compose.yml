@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  testservice:
+    image: ${DOCKER_REGISTRY-}testservice
+    build:
+      context: .
+      dockerfile: testservice/Dockerfile
+    hostname: testservice
+
+  testgateway:
+    image: ${DOCKER_REGISTRY-}testgateway
+    build:
+      context: .
+      dockerfile: testgateway/Dockerfile
+    links:
+      - testservice:testservice
+    depends_on:
+      - testservice
+
