@@ -7,6 +7,10 @@ services:
       context: .
       dockerfile: testservice/Dockerfile
     hostname: testservice
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5001:80"
 
   testgateway:
     image: ${DOCKER_REGISTRY-}testgateway
@@ -17,4 +21,8 @@ services:
       - testservice:testservice
     depends_on:
       - testservice
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5001:80"
 

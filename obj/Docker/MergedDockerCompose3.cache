@@ -1,0 +1,76 @@
+services:
+  testgateway:
+    build:
+      context: G:\Jelle\Testing\DockerTesting
+      dockerfile: testgateway/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: testgateway
+      target: base
+    container_name: testgateway
+    depends_on:
+      testservice:
+        condition: service_started
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: ''
+    image: testgateway:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/netcoreapp3.1/testgateway.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    links:
+    - testservice
+    ports:
+    - published: 5001
+      target: 80
+    - published: 5000
+      target: 80
+    tty: true
+    volumes:
+    - G:\Jelle\Testing\DockerTesting\testgateway:/app:rw
+    - C:\Users\Jelle\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Jelle\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Jelle\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Users\Jelle\.nuget\packages:/root/.nuget/packages:ro
+    - G:\Jelle\Testing\DockerTesting:/src:rw
+  testservice:
+    build:
+      context: G:\Jelle\Testing\DockerTesting
+      dockerfile: testservice/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: testservice
+      target: base
+    container_name: testservice
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: ''
+    hostname: testservice
+    image: testservice:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/netcoreapp3.1/testservice.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    ports:
+    - published: 5001
+      target: 80
+    tty: true
+    volumes:
+    - G:\Jelle\Testing\DockerTesting\testservice:/app:rw
+    - C:\Users\Jelle\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Jelle\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Jelle\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Users\Jelle\.nuget\packages:/root/.nuget/packages:ro
+    - G:\Jelle\Testing\DockerTesting:/src:rw
+version: '3.4'
