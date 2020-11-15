@@ -8,7 +8,9 @@ namespace unittestproject
         [TestMethod]
         public void TestMethod1()
         {
-            Assert.IsTrue(true);
+            int one = 1;
+            int two = 2;
+            Assert.IsTrue(one + two == 3);
         }
     }
 }
