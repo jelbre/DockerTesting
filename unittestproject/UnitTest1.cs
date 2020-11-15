@@ -18,7 +18,7 @@ namespace unittestproject
         {
             int one = 1;
             int two = 2;
-            Assert.IsTrue(one + two == 4);
+            Assert.IsTrue(one + two == 3);
         }
     }
 }
